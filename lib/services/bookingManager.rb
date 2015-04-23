@@ -3,8 +3,7 @@ require 'time'
 class BookingManager
   attr_accessor :db
 
-  DEFAULT_TIME_CHECKPOINT = '2015-04-01T00:00'
-  DEFAULT_BOOKING = -> (start_time, end_time, duration) { Booking.new(1, 'Administrator', start_time, end_time, duration) }
+  DEFAULT_TIME_CHECKPOINT = Time.parse('2015-04-01T00:00').to_i
 
   def initialize(db)
     self.db = db
@@ -14,10 +13,12 @@ class BookingManager
     # NOTE: One huge assumption here, bookings are
     # sorted in ascending order by created_at
     time_checkpoints = {}
-    start_time = end_time = ""
+    last_booking = nil
 
     bookings = db.bookings
     bookings.each { |booking|
+      last_booking = booking
+
       # get relevant booking info
       start_time = booking.start_time
       end_time = booking.end_time
@@ -27,15 +28,21 @@ class BookingManager
       time_checkpoint = time_checkpoints.fetch(room_id) { DEFAULT_TIME_CHECKPOINT }
 
       # check if there is any slot free between the last and this booking
-      delta_time = (start_time.to_i - time_checkpoint.to_i) * 60
-      return booking if delta_time > duration.to_i
+      delta_time = (start_time - time_checkpoint) / 60
+      if delta_time > duration
+        return booking.tap { |booking|
+          booking.start_time = time_checkpoint
+          booking.end_time = time_checkpoint + duration * 60
+        }
+      end
 
       # there is no free slot, so push time checkpoint to the end of this booking
       time_checkpoints[room_id] = end_time
     }
-    # when there is no free slot we'll take the firs available for the 1st room
-    new_start_time = end_time
-    new_end_time = Time.parse(end_time) + duration
-    return DEFAULT_BOOKING.call(new_start_time, new_end_time, duration)
+    # when there is no free slot we'll take the first available for the 1st room
+    return last_booking.tap { |booking|
+      booking.start_time = booking.end_time
+      booking.end_time += duration * 60
+    }
   end
 end

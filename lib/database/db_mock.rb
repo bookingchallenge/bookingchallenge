@@ -19,11 +19,11 @@ class DatabaseMock
 
       column_values.each { |booking|
         @bookings << Booking.new(
-          booking[bookingId_index],
-          booking[roomId_index],
+          booking[bookingId_index].to_i,
+          booking[roomId_index].to_i,
           booking[bookerName_index],
-          booking[startTime_index],
-          booking[endTime_index]
+          Time.parse(booking[startTime_index]).to_i,
+          Time.parse(booking[endTime_index]).to_i
         )
       }
     end
