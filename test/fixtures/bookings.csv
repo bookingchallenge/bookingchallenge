@@ -1,0 +1,5 @@
+bookingId roomId bookerName startTime endTime
+1 1 John 2015-04-01T00:00 720
+2 1 Alice 2015-04-01T12:00 720
+3 1 John 2015-04-01T00:00 720
+4 1 Alice 2015-04-01T13:00 120
