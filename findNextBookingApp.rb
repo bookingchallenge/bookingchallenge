@@ -16,4 +16,4 @@ bookingManager = BookingManager.new(db_instance)
 response = bookingManager.get_next_free_slot(duration)
 
 # pretty print result to user
-puts response
+puts "Next free slot is in room ID #{response.room_id} at #{response.start_time}"
