@@ -11,10 +11,13 @@ a) Get all bookings for a room
 
 ==== REQUEST ====
 
+```
 GET /rooms/<room id>/bookings
+```
 
 ==== RESPONSE ====
 
+```
 {
   'bookings': [
     'booking_id': 540,
@@ -26,36 +29,42 @@ GET /rooms/<room id>/bookings
     'updated_at': "2015-03-01T20:00"
   ]
 }
-
+```
 
 b) Create a booking for a room
 
 ==== REQUEST ====
 
+```
 POST /rooms/<room id>/boookings
 {
   'person_id': 34,
   'start_time': "2015-04-01T05:00",
   'duration': 30
 }
+```
 
 ==== RESPONSE ====
 
+```
 {
   'booking_id': 540
 }
-
+```
 
 c) Delete a booking associated with a room
 
 ==== REQUEST ====
 
+```
 URL -> DELETE /rooms/<room id>/bookings/<booking id>
+```
 
 ==== RESPONSE ====
 
+```
 Empty body
-
+```
 
 # Database Implementation
 
@@ -65,13 +74,12 @@ I would try out mongodb to store all the data.
 - Easy to deploy and maintain
 
 Collections:
-> Room
-> Person
-> Bookings
+* Room
+* Person
+* Bookings
 
 Query Examples:
-1) Get all bookings for room x
+1. Get all bookings for room x
 bookings.where(room_id: x)
-
-2) Get all bookings for person x
+2. Get all bookings for person x
 bookings.where(person_id: x)
