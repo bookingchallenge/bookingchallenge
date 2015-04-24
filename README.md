@@ -2,20 +2,19 @@
 
 $ ruby findNextBookingApp.rb test/fixtures/bookings.csv 100
 
-# Application RESTful Implementation
+# RESTful Implementation
 
 HTTP codes -> 200 (OK), 404 (Endpoint doesnt exist), 401 (Application Error), 500 (Infrastructure Error)
 
 a) Get all bookings for a room
 
-------------
-  REQUEST
-------------
+
+==== REQUEST ====
+
 GET /rooms/<room id>/bookings
 
-------------
-  RESPONSE
-------------
+==== RESPONSE ====
+
 {
   'bookings': [
     'booking_id': 540,
@@ -31,9 +30,8 @@ GET /rooms/<room id>/bookings
 
 b) Create a booking for a room
 
-------------
-  REQUEST
-------------
+==== REQUEST ====
+
 POST /rooms/<room id>/boookings
 {
   'person_id': 34,
@@ -41,26 +39,39 @@ POST /rooms/<room id>/boookings
   'duration': 30
 }
 
-------------
-  RESPONSE
-------------
+==== RESPONSE ====
+
 {
   'booking_id': 540
 }
 
 
 c) Delete a booking associated with a room
-------------
-  REQUEST
-------------
+
+==== REQUEST ====
+
 URL -> DELETE /rooms/<room id>/bookings/<booking id>
 
-------------
-  RESPONSE
-------------
+==== RESPONSE ====
 
 Empty body
 
 
+# Database Implementation
 
+I would try out mongodb to store all the data.
+- Data is already in JSON, so its easy to store it
+- Basic relationship between entities, so queries will be simple
+- Easy to deploy and maintain
 
+Collections:
+> Room
+> Person
+> Bookings
+
+Query Examples:
+1) Get all bookings for room x
+bookings.where(room_id: x)
+
+2) Get all bookings for person x
+bookings.where(person_id: x)
