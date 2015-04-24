@@ -79,7 +79,12 @@ Collections:
 * Bookings
 
 Query Examples:
-1. Get all bookings for room x
+* Get all bookings for room x
+```
 bookings.where(room_id: x)
-2. Get all bookings for person x
+```
+
+* Get all bookings for person x
+```
 bookings.where(person_id: x)
+```
