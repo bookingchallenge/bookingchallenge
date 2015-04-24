@@ -1,6 +1,14 @@
 # How to run this app?
 
+**Usage:**
+```
+$ ruby findNextBookingApp.rb <path to CSV file> <duration in minutes>
+```
+
+**Example:**
+```
 $ ruby findNextBookingApp.rb test/fixtures/bookings.csv 100
+```
 
 # RESTful Implementation
 
@@ -73,12 +81,12 @@ I would try out mongodb to store all the data.
 - Basic relationship between entities, so queries will be simple
 - Easy to deploy and maintain
 
-Collections:
+**Collections:**
 * Rooms
 * Persons
 * Bookings
 
-Query Examples:
+**Query Examples:**
 * Get all bookings for room x
 ```
 bookings.where(room_id: x)
