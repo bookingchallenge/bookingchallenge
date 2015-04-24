@@ -74,8 +74,8 @@ I would try out mongodb to store all the data.
 - Easy to deploy and maintain
 
 Collections:
-* Room
-* Person
+* Rooms
+* Persons
 * Bookings
 
 Query Examples:
