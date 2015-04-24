@@ -36,7 +36,7 @@ b) Create a booking for a room
 ==== REQUEST ====
 
 ```
-POST /rooms/<room id>/boookings
+POST /rooms/<room id>/bookings
 {
   'person_id': 34,
   'start_time': "2015-04-01T05:00",
